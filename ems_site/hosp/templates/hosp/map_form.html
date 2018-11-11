@@ -59,19 +59,25 @@ setInterval(function() {
 }, 500);
 
 </script>
-
-<div class="container">
-  <h1>Ambulance Tracking</h1>
-  <div id="map-canvas" style="width:600px;height:400px"></div>
+<label for="dashboard" class="dashboard-text text-center">Dashboard</label>
+<div class="container" id="dashboard">
+  <div class="col-md-6">
+    <label for="map-canvas" class="form-text">Google Map </label>
+    <div id="map-canvas" style="width:30em;height:20em"></div>
+  </div>
+  <div class="col-md-6">
     <div class="row text-center d-flex h-100 row-pad">
-		{% for patient in patients %}
-            <h3>{{ patient.aid }}</h3>
-            <ul class="list-group">
-                <li class="list-group-item">Blood Pressure: {{ patient.p1 }}</li>
-                <li class="list-group-item">Incident Type: {{ patient.p2 }}</li>
-            </ul>
-		{% endfor %}
-	</div>
+      {% for patient in patients %}
+              <label for="{{ patient.aid }}" class="form-text">{{ patient.aid }}</label> 
+              <ul class="list-group" id="{{ patient.aid }}">
+                  <li class="list-group-item">Blood Pressure: {{ patient.p1 }}</li>
+                  <li class="list-group-item">Incident Type: {{ patient.p2 }}</li>
+              </ul>
+      {% endfor %}
+    </div>
+  </div>
+  
+  
 </div>
 
 
