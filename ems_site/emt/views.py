@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 def get_hospital(request):
 
-	hospitals = {} #populate based on api
+	hospitals = {'UW-Hospital', 'Unity Meriter'} #populate based on api
 
 	return render(request, 'emt/hospital_form.html', {'hospitals': hospitals})
 
