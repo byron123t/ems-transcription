@@ -1,0 +1,62 @@
+
+
+
+:root {
+	--bg-color                    : rgba(249, 219, 217, 1);
+	--button-bg-color             : rgba(237, 135, 151, 1);
+	--button-text-color           : rgba(20, 1, 4, 1);
+	--button-hover-bg-color       : rgba(89, 7, 7, 1);
+	--button-hover-text-color     : rgba(232, 232, 232, 1);
+
+};
+
+html, body {
+	height : 100% !important;
+	font-family : 'Quicksand';
+}
+
+.row-pad {
+	padding : 0.5em;
+}
+
+
+.button-form {
+	padding   : 0.5em;
+	font-size : 2em;
+	font-family : 'Quicksand';
+	border :none;
+	-webkit-transition-duration:0.3s;
+}
+
+.button-form:active {
+	outline: 2px solid;
+	outline-color: rgba(89, 7, 7, 1);
+}
+
+.button-confirm {
+	font-size: 1.5em;
+	font-family : 'Quicksand';
+	border : none;
+}
+
+.form-text { 
+	font-family : 'Quicksand';
+	font-size   : 1.5em;
+	width       : 100%;
+}
+
+	/*
+	background-color: var(--button-bg-color);
+	color : var(--button-text-color);-->
+	
+	
+	
+}
+.button-form:hover {
+	background-color: var(--button-hover-bg-color);
+	color           : var(--button-hover-text-color);
+}
+.active {
+	background-color: var(--button-hover-bg-color);
+	color           : var(--button-hover-text-color);
+}*/

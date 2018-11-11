@@ -1,0 +1,34 @@
+{% extends "base.html" %}    
+
+
+{% block style %}
+
+{% endblock style %}
+
+
+{% block content %}
+
+
+
+<form>
+
+	{% for id, question in questions.items %}
+		<div class="form-group text-center">
+			<label class="form-text"for="button1">{{question.prompt}}</label>
+
+			{% if question.options is null %}
+				<input type="text">
+			{% else %}
+				{% for option in question.options %}
+					<input type="button" class = "btn btn-danger" id="button1" value="{{option}}">
+				{% endfor %}
+			{% endif %}
+		</div>
+	{% endfor %}
+
+	<div class="form-group text-center">
+		<label class="form-text"for="button1">Did you give the patient treatment?</label>
+		<input type="button" class = "btn btn-danger" id="button1">
+	</div>
+</form>
+{% endblock content%} 

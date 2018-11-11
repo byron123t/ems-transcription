@@ -2,20 +2,26 @@
 
 
 {% block style %}
-
+	{% load static %}
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" /> -->
+	<!--<link rel="stylesheet" type="text/css" href="{% static 'emt/hospital_form.css' %}" />-->
 {% endblock style %}
 
 
 {% block content %}
 
 
-<div class="container-fluid">
-	<div class="row">
+<div class="container-fluid h-100">
+	<div class="row text-center d-flex h-100 row-pad">
+		
 		{% for hospital in hospitals %}
-			<button class="btn btn-primary" type="submit">
+			<button class="btn btn-danger button-form" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">
 				{{ hospital }}
 			</button>
 		{% endfor %}
+	</div>
+	<div class="row text-center row-pad">
+		<button class="btn btn-success button-confirm"> Confirm </button>
 	</div>
 </div>
 
