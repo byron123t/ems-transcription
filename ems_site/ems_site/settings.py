@@ -128,3 +128,16 @@ STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "emt/static"),
         os.path.join(BASE_DIR, "hosp/static")
         ]
+
+
+# Map Widgets
+MAP_WIDGETS = {
+    "GooglePointFieldWidget": (
+        ("zoom", 15),
+        ("mapCenterLocationName", "madison"),
+        ("GooglePlaceAutocompleteOptions", {'componentRestrictions': {'country': 'us'}
+    }),
+        ("markerFitZoom", 12),
+    ),
+    "GOOGLE_MAP_API_KEY": "AIzaSyBALRLR27oYAQ4q5ZXncP4uIpS11VsK6NE"
+}

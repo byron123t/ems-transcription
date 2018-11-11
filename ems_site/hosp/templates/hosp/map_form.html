@@ -1,0 +1,69 @@
+{% extends "base.html" %}    
+
+
+{% block style %}
+
+{% endblock style %}
+
+
+{% block content %}
+<!--<script>-->
+    <!--var x = document.getElementById("demo");-->
+<!--function getLocation() {-->
+    <!--if (navigator.geolocation) {-->
+        <!--navigator.geolocation.getCurrentPosition(showPosition);-->
+    <!--} else {-->
+        <!--x.innerHTML = "Geolocation is not supported by this browser.";-->
+    <!--}-->
+<!--}-->
+<!--</script>-->
+<script>
+window.lat = 43.073130;
+window.lng = -89.395114;
+
+function circlePoint(time) {
+  if(window.lat < 43.067000) {
+    return {lat:window.lat, lng:window.lng};
+  }
+  if(window.lng < -89.400500) {
+    return {lat:window.lat - 0.000050, lng:window.lng};
+  } else {
+    return {lat:window.lat, lng:window.lng - 0.000050};
+  }
+};
+
+var initialize = function() {
+  map  = new google.maps.Map(document.getElementById('map-canvas'), {center:{lat:lat,lng:lng},zoom:12});
+  mark = new google.maps.Marker({position:{lat:lat, lng:lng}, map:map});
+};
+window.initialize = initialize;
+
+var redraw = function(payload) {
+  lat = payload.message.lat;
+  lng = payload.message.lng;
+  map.setCenter({lat:lat, lng:lng, alt:0});
+  mark.setPosition({lat:lat, lng:lng, alt:0});
+};
+
+
+var pnChannel = "map-channel";
+var pubnub = new PubNub({
+  publishKey:   'pub-c-52b44518-5aeb-4d5e-9354-297e4f07cb49',
+  subscribeKey: 'sub-c-d8b02a2a-e5bb-11e8-bf53-0a39541862c0'
+});
+pubnub.subscribe({channels: [pnChannel]});
+pubnub.addListener({message:redraw});
+
+setInterval(function() {
+  pubnub.publish({channel:pnChannel, message:circlePoint(new Date().getTime()/1000)});
+}, 500);
+</script>
+
+<div class="container">
+  <h1>PubNub Google Maps Tutorial - Live Map Marker</h1>
+  <div id="map-canvas" style="width:600px;height:400px"></div>
+</div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBALRLR27oYAQ4q5ZXncP4uIpS11VsK6NE&callback=initialize"></script>
+
+{% endblock content%} 
