@@ -1,10 +1,4 @@
-var prettyjson = require('prettyjson');
-
 exports.handler = function(event, context, callback) {
-    if (event.aid === undefined || event.latitude === undefined || event.longitude === undefined) {
-        callback("Invalid input.");
-    }
-    
     const response = {
       "hospitals": [
         "UnityPoint Health - Meriter Hospital",
@@ -13,9 +7,5 @@ exports.handler = function(event, context, callback) {
       ]
     };
 
-    callback(null, prettyjson.render(response, {
-      keysColor: 'rainbow',
-      dashColor: 'magenta',
-      stringColor: 'white'
-    }));
+    callback(null, response);
 }

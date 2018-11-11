@@ -8,8 +8,17 @@ AWS.config.update({region: 'us-east-2'});
 ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
 
 exports.handler = function(event, context, callback) {
+    if (event.hospital === undefined) {
+      callback("Invalid input.");
+    }
+
     var params = {
-      TableName: process.env.TABLE_NAME
+      TableName: process.env.TABLE_NAME,
+      IndexName: process.env.INDEX_NAME,
+      KeyConditionExpression: "hospital = :h",
+      ExpressionAttributeValues: {
+        ":h": {N: event.hospital}
+      }
     };
 
     // Call DynamoDB to read the item from the table
@@ -17,10 +26,9 @@ exports.handler = function(event, context, callback) {
       if (err) {
         console.log("Error", err);
         callback(err);
-
       } else {
-        if (data.Item == undefined) {
-          console.log("Error: ambulance does not exist");
+        if (data.Item === undefined) {
+          console.log("Error: couldn't query for hospital");
           callback(err);
         } else {
           console.log("Success", data.Item);
@@ -28,5 +36,4 @@ exports.handler = function(event, context, callback) {
         }
       }
     });
-    console.log("End of function");
 };

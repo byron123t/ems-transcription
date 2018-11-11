@@ -8,14 +8,17 @@ AWS.config.update({region: 'us-east-2'});
 ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
 
 exports.handler = function(event, context, callback) {
-    if (event.aid === undefined || event.latitude === undefined || event.longitude === undefined) {
+    if (event.aid === undefined ||
+      event.hospital === undefined ||
+      event.latitude === undefined ||
+      event.longitude === undefined) {
         callback("Invalid input.");
     }
 
     var params = {
       TableName: process.env.TABLE_NAME,
       Key: {
-        'aid' : {N: event.aid},
+        'aid' : {N: event.aid}
       }
     };
 
@@ -46,6 +49,7 @@ function createAmbulance(event, callback) {
     TableName: process.env.TABLE_NAME,
     Item: {
       'aid' : {N: event.aid},
+      'hospital' : {N: event.hospital},
       'latitude' : {N: event.latitude},
       'longitude' : {N: event.longitude},
     }
@@ -66,7 +70,7 @@ function updateAmbulance(event, callback) {
   var params = {
     TableName: process.env.TABLE_NAME,
     Key: {
-      'aid' : {N: event.aid},
+      'aid' : {N: event.aid}
     },
     UpdateExpression: "set latitude = :lat, longitude = :long",
     ExpressionAttributeValues:{

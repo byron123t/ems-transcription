@@ -7,8 +7,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Triage Trio",
-  "license": "ISC",
-  "dependencies": {
-    "prettyjson": "1.2.1"
-  }
+  "license": "ISC"
 }
