@@ -49,7 +49,8 @@ function createReport(event, callback) {
     Item: {
       'aid' : {N: event.aid},
       'p1' : {S: event.p1},
-      'p2' : {S: event.p2}
+      'p2' : {S: event.p2},
+      'query' : {N: "1"}
     }
   };
   // Call DynamoDB to read the item from the table
