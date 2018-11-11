@@ -20,15 +20,17 @@
 				<input type="text">
 			{% else %}
 				{% for option in question.options %}
-					<input type="button" class = "btn btn-danger" id="button1" value="{{option}}">
+					<input type="button" class = "btn btn-danger button-form" id="button1" value="{{option}}">
 				{% endfor %}
 			{% endif %}
 		</div>
 	{% endfor %}
 
-	<div class="form-group text-center">
-		<label class="form-text"for="button1">Did you give the patient treatment?</label>
-		<input type="button" class = "btn btn-danger" id="button1">
+	<div class = "row text-center">
+		<form action="#"method="post">
+			<input type="submit" class="btn btn-success button-confirm" value = "Submit" name ="submit_btn">
+		</form>
 	</div>
+	
 </form>
 {% endblock content%} 

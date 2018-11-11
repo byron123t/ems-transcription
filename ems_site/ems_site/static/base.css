@@ -13,6 +13,8 @@
 html, body {
 	height : 100% !important;
 	font-family : 'Quicksand';
+
+
 }
 
 .row-pad {
@@ -22,10 +24,14 @@ html, body {
 
 .button-form {
 	padding   : 0.5em;
-	font-size : 2em;
+	font-size : 1.5em;
 	font-family : 'Quicksand';
 	border :none;
 	-webkit-transition-duration:0.3s;
+
+	-webkit-box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.15);
+    box-shadow:0 6px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
 .button-form:active {
@@ -34,15 +40,26 @@ html, body {
 }
 
 .button-confirm {
-	font-size: 1.5em;
+	font-size: 2.5em;
 	font-family : 'Quicksand';
 	border : none;
+
+	-webkit-box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.15);
+    box-shadow:0 6px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
 .form-text { 
 	font-family : 'Quicksand';
 	font-size   : 1.5em;
 	width       : 100%;
+}
+
+.div-color {
+	background-color : rgb(255, 214, 214);
+}
+.body-padding {
+	padding-top : 4em;
 }
 
 	/*
