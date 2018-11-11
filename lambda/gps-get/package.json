@@ -1,0 +1,14 @@
+{
+  "name": "gps-get",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Triage Trio",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "2.353.0"
+  }
+}
