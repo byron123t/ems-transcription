@@ -18,14 +18,14 @@
 <!--}-->
 <!--</script>-->
 <script>
-window.lat = 43.073130;
+window.lat = 43.073200;
 window.lng = -89.395114;
 
 function circlePoint(time) {
   if(window.lat < 43.067000) {
     return {lat:window.lat, lng:window.lng};
   }
-  if(window.lng < -89.400500) {
+  if(window.lng < -89.400650) {
     return {lat:window.lat - 0.000050, lng:window.lng};
   } else {
     return {lat:window.lat, lng:window.lng - 0.000050};
@@ -33,7 +33,7 @@ function circlePoint(time) {
 };
 
 var initialize = function() {
-  map  = new google.maps.Map(document.getElementById('map-canvas'), {center:{lat:lat,lng:lng},zoom:12});
+  map  = new google.maps.Map(document.getElementById('map-canvas'), {center:{lat:lat,lng:lng},zoom:17});
   mark = new google.maps.Marker({position:{lat:lat, lng:lng}, map:map});
 };
 window.initialize = initialize;
@@ -57,12 +57,23 @@ pubnub.addListener({message:redraw});
 setInterval(function() {
   pubnub.publish({channel:pnChannel, message:circlePoint(new Date().getTime()/1000)});
 }, 500);
+
 </script>
 
 <div class="container">
-  <h1>PubNub Google Maps Tutorial - Live Map Marker</h1>
+  <h1>Ambulance Tracking</h1>
   <div id="map-canvas" style="width:600px;height:400px"></div>
+    <div class="row text-center d-flex h-100 row-pad">
+		{% for patient in patients %}
+            <h3>{{ patient.aid }}</h3>
+            <ul class="list-group">
+                <li class="list-group-item">Blood Pressure: {{ patient.p1 }}</li>
+                <li class="list-group-item">Incident Type: {{ patient.p2 }}</li>
+            </ul>
+		{% endfor %}
+	</div>
 </div>
+
 
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBALRLR27oYAQ4q5ZXncP4uIpS11VsK6NE&callback=initialize"></script>
 
