@@ -1,3 +1,5 @@
+console.log('Loading gps post function');
+
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region
@@ -5,15 +7,9 @@ AWS.config.update({region: 'us-east-2'});
 // Create the DynamoDB service object
 ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
 
-console.log('Loading gps post function');
-
-exports.handler = async (event) => {
+exports.handler = function(event, context, callback) {
     if (event.aid === undefined || event.latitude === undefined || event.longitude === undefined) {
-        const response = {
-            statusCode: 400,
-            body: JSON.stringify("Invalid input.")
-        }
-        return response;
+        callback("Invalid input.");
     }
 
     var params = {
@@ -35,23 +31,17 @@ exports.handler = async (event) => {
       } else {
         if (data.Item == undefined) {
           console.log("Error: viewer does not exist");
-          return createAmbulance(event);
+          createAmbulance(event, callback);
         } else {
           console.log("Success", data.Item);
-          return updateAmbulance(event);
+          updateAmbulance(event, callback);
         }
       }
     });
-
-    // TODO implement
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify('Hello from Lambda!'),
-    };
-    return response;
+    console.log("End of function");
 };
 
-function createAmbulance(event) {
+function createAmbulance(event, callback) {
   var params = {
     TableName: process.env.TABLE_NAME,
     Item: {
@@ -64,28 +54,21 @@ function createAmbulance(event) {
   ddb.putItem(params, function(err, data) {
     if (err) {
       console.log("Error", err);
-      const response = {
-          statusCode: 500
-      }
-      return response;
+      callback(err);
     } else {
       console.log("Success", data.Item);
+      callback(null, "GPS updated.");
     }
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify('GPS updated.'),
-    };
-    return response;
   });
 }
 
-function updateAmbulance(event) {
+function updateAmbulance(event, callback) {
   var params = {
     TableName: process.env.TABLE_NAME,
     Key: {
       'aid' : {N: event.aid},
     },
-    UpdateExpression: "set latitude = :lat",
+    UpdateExpression: "set latitude = :lat, longitude = :long",
     ExpressionAttributeValues:{
         ":lat": {"N":event.latitude},
         ":long": {"N":event.longitude}
@@ -97,17 +80,10 @@ function updateAmbulance(event) {
   ddb.updateItem(params, function(err, data) {
     if (err) {
       console.log("Error", err);
-      const response = {
-          statusCode: 500
-      }
-      return response;
+      callback(err);
     } else {
       console.log("Success", data);
+      callback(null, "GPS updated.");
     }
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify('GPS updated.'),
-    };
-    return response;
   });
 }
